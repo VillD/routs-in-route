@@ -9,7 +9,7 @@ const router = createRouter({
       name: "home",
       component: HomeView,
     },
-    {
+    /*{
       path: "/about",
       name: "about",
       // route level code-splitting
@@ -36,11 +36,20 @@ const router = createRouter({
       path: "/panama",
       name: "panama",
       component: () => import("../views/PanamaView.vue"),
-    },
+    },*/
     {
       path: "/destination/:id/:slug",
       name: "destination.show",
       component: () => import("../views/DestinationShow.vue"),
+      props:route =>({...route.params,id: parseInt(route.params.id)}),
+      children:[
+        {
+          path: ':experienceSlug',
+          name: 'experience.show',
+          component: ()=> import("../views/ExperienceShow.vue"),
+          props:route =>({...route.params, id: parseInt(route.params.id)}),
+        },
+      ]
     },
   ],
   // linkActiveClass: "vue-school-active-link",
